@@ -287,3 +287,21 @@ And we extend it in another template
   <h1>Hello, World!</h1>
 {% endblock %}
 ```
+
+### Twitter Bootstrap Integration
+
+The simple approach to integrating BS4 is to install the flask extension
+
+```shell
+> pipenv install flask-bootstrap
+```
+
+Import the extension in app.py
+
+```python
+from flask.ext.bootstrap import Bootstrap
+
+# ...
+
+bootstrap = Bootstrap(app)
+```
