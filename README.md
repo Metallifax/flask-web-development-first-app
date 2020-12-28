@@ -22,42 +22,21 @@ Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,
 
 ### Context Globals
 
-```shell
-# The application instance for the active application
-current_app| application context
-
-# An object that the application can use for temporary
-# storage during the handling of a request. Reset with each
-# request
-     g    |  application context
-
-# The request object, which encapsulates the contents of an
-# HTTP request sent by the client
-request   |  request context
-
-## The user session, a dictionary that the application can use
-# to store values that are "remembered" between requests.
-session  |  request context
-```
+| Variable Name | Context | Description |
+| ------------- | ------- | ----------- |
+| current_app | Application Context | The application instance for the active application. |
+| g | Application Context | An object that the application can use for temporary storage during the handling of a request. This variable is reset with each request. |
+| request | Request Context | The request object, which encapsulates the contents of a HTTP request sent by the client. |
+| session | Request Context | The user session, a dictionary that the application can use to store values that are "remembered" between requests. |
 
 Four basic Request Hooks:
 
-```shell
-# Register a function to run before the first
-# request is handled
->>> before_first_request
-
-# Register a function to run before each request
->>> before_request
-
-# Register a function to run after each request,
-# If no unhandled exceptions occurred
->>> after_request
-
-# Register a function to run after each request,
-# even if unhandled exceptions occurred
->>> teardown_request
-```
+| Hook | Description |
+| ------------- | ------- |
+| before_first_request | Register a function to run before the first request is handled.|
+| before_request | Register a function to run before each request. |
+| after_request | Register a function to run after each request, if no unhandled exceptions occurred.|
+| teardown_request | Register a function to run after each request, even in unhandled exception occurs. |
 
 ### Special Responses
 
@@ -190,3 +169,14 @@ def index():
 def user(name):
   return render_template('user.html', name=name)
 ```
+
+### Jinja2 Variable filters
+| Filter Name | Description |
+| ----------- | ----------- |
+| safe | Renders the value without applying escaping|
+| capitalize | Converts the first character of the value to uppercase and the rest to lowercase|
+| lower | Converts the value to lowercase characters |
+| upper | Converts the value to uppercase characters |
+| title | Capitalizes each word in the value |
+| trim | Removes the leading and trailing whitespaces from the value |
+| striptags | Removes any HTML tags from the value before rendering |
