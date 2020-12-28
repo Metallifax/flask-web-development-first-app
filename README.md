@@ -21,6 +21,7 @@ Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,
 ## Useful Knowledge
 
 ### Context Globals
+
 ```shell
 # The application instance for the active application
 current_app| application context
@@ -39,7 +40,7 @@ request   |  request context
 session  |  request context
 ```
 
-**Four basic Request Hooks:**
+Four basic Request Hooks:
 
 ```shell
 # Register a function to run before the first
@@ -60,7 +61,7 @@ session  |  request context
 
 ### Special Responses
 
-**Creating a Response Object:**
+Creating a Response Object:
 
 ```python
 from flask import make_response
@@ -72,7 +73,7 @@ def index():
   return response
 ```
 
-**Creating a Redirect:**
+*reating a Redirect:
 
 ```python
 from flask import redirect
@@ -82,7 +83,7 @@ def index():
   return redirect('http://www.example.com')
 ```
 
-**Creating an Abort function:**
+Creating an Abort function:
 
 ```python
 from flask import abort
@@ -93,4 +94,50 @@ def get_user(id):
   if not user:
     abort(404)
   return f'<h1>Hello, {user.name}</h1>
+```
+
+### Command Line Options with Flask-Script
+
+first install
+
+```shell
+> pipenv install flask-script
+```
+
+Update the application script
+
+```python
+from flask.ext.script import Manager
+
+manager = Manager(app)
+
+# ...
+
+if __name__ == '__main__':
+  manager.run()
+```
+
+Now you can view the command line utility usage message
+
+```shell
+> python app.py
+usage: app.py [-?] {shell,runserver} ...
+
+positional arguments:
+  {shell,runserver}
+    shell            Runs a Python shell inside Flask application context.
+    runserver        Runs the Flask development server i.e. app.run()
+
+optional arguments:
+  -?, --help         show this help message and exit
+
+> python app.py runserver
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [28/Dec/2020 17:31:55] "GET / HTTP/1.1" 200 -
+
 ```
