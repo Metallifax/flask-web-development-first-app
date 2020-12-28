@@ -20,7 +20,7 @@ Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,
 
 ## Useful Knowledge
 
-**Four basic Context Globals:**
+### Context Globals
 ```shell
 # The application instance for the active application
 current_app| application context
@@ -56,4 +56,41 @@ session  |  request context
 # Register a function to run after each request,
 # even if unhandled exceptions occurred
 >>> teardown_request
+```
+
+### Special Responses
+
+**Creating a Response Object:**
+
+```python
+from flask import make_response
+
+@app.route('/')
+def index():
+  response = make_response('<h1>This document carries a cookie!</h1>')
+  response.set_cookie('answer', '42')
+  return response
+```
+
+**Creating a Redirect:**
+
+```python
+from flask import redirect
+
+@app.route('/')
+def index():
+  return redirect('http://www.example.com')
+```
+
+**Creating an Abort function:**
+
+```python
+from flask import abort
+
+@app.route('/user/<id>')
+def get_user(id):
+  user = load_user(id)
+  if not user:
+    abort(404)
+  return f'<h1>Hello, {user.name}</h1>
 ```
