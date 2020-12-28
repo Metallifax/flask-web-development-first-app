@@ -131,13 +131,46 @@ positional arguments:
 optional arguments:
   -?, --help         show this help message and exit
 
+> python app.py runserver --help
+usage: app.py runserver [-?] [-h HOST] [-p PORT] [--threaded] 
+[--processes PROCESSES] [--passthrough-errors] [-d] [-D] [-r] 
+[-R] [--ssl-crt SSL_CRT] [--ssl-key SSL_KEY]
+
+Runs the Flask development server i.e. app.run()
+
+optional arguments:
+  -?, --help            show this help message and exit
+  -h HOST, --host HOST
+  -p PORT, --port PORT
+  --threaded
+  --processes PROCESSES
+  --passthrough-errors
+  -d, --debug           enable the Werkzeug debugger 
+                        (DO NOT use in production code)
+  -D, --no-debug        disable the Werkzeug debugger
+  -r, --reload          monitor Python files for changes 
+                        (not 100% safe for production use)
+  -R, --no-reload       do not monitor Python files for changes
+  --ssl-crt SSL_CRT     Path to ssl certificate
+  --ssl-key SSL_KEY     Path to ssl key
+
 > python app.py runserver
  * Serving Flask app "app" (lazy loading)
  * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
+   WARNING: This is a development server. Do not use it in a 
+            production deployment.
    Use a production WSGI server instead.
  * Debug mode: off
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 127.0.0.1 - - [28/Dec/2020 17:31:55] "GET / HTTP/1.1" 200 -
 
+# Changing the host server
+> python app.py runserver --host 0.0.0.0
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in 
+            a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
