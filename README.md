@@ -170,7 +170,17 @@ def user(name):
   return render_template('user.html', name=name)
 ```
 
+### Examples of Variables in Templates
+
+```html
+<p>A value from a dictionary: {{ mydict['key'] }}</p>
+<p>A value from a list: {{ mylist[3] }}</p>
+<p>A value from a list, with a variable index: {{ mylist[myintvar] }}</p>
+<p>A value from an object's method: {{ myobj.somemethod() }}</p>
+```
+
 ### Jinja2 Variable filters
+
 | Filter Name | Description |
 | ----------- | ----------- |
 | safe | Renders the value without applying escaping|
@@ -180,3 +190,100 @@ def user(name):
 | title | Capitalizes each word in the value |
 | trim | Removes the leading and trailing whitespaces from the value |
 | striptags | Removes any HTML tags from the value before rendering |
+
+**Important Note:**
+*Never use safe filter on values that aren't trusted, such as input fields*
+
+**Complete list of jinja filters here:**
+*https://jinja.palletsprojects.com/en/2.11.x/templates/#builtin-filters*
+
+### Template Control Structures
+
+Conditional statements
+
+```html
+{% if user %}
+  Hello, {{ user }}!
+{% else %}
+  Hello, stranger!
+{% endif %}
+```
+
+List of elements
+
+```html
+<ul>
+  {% for comment in comments %}
+    <li>{{ comment }}</li>
+  {% endfor %}
+</ul>
+```
+
+Jinja2 macros
+
+```html
+{% macro render_comment(comment) %}
+  <li>{{ comment }}</li>
+{% endmacro %}
+
+<ul>
+  {% for comment in comments %}
+    {{ render_comment(comment) }}
+  {% endfor %}
+</ul>
+```
+
+To make macros more reusable, they can be stored in standalone files that are then *imported* from all the templates that need them:
+
+```html
+{% import 'macros.html' as macros %}
+<ul>
+  {% for comment in comments %}
+    {{ macros.render_comment(comment) }}
+  {% endfor %}
+</ul>
+```
+
+Portions of template code that need to be repeated in several places can be stored in a seperate file and included from all the templates to avoid repetition:
+
+```html
+{% include 'common.html' %}
+```
+
+A more powerful way would be to reuse through template inheritance, which is similar to class inheritance in Python code.
+
+First we create the base file that will be inherited.
+
+```html
+<!-- base.html -->
+<html>
+  <head>
+    {% block head %}
+      <title>{% block title %}{% endblock%} - My Application</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>
+```
+
+And we extend it in another template
+
+```html
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+  </style>
+{% endblock %}
+
+{% block body %}
+  <h1>Hello, World!</h1>
+{% endblock %}
+```
