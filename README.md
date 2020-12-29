@@ -4,6 +4,8 @@ Follows the book "Flask Web Development" by Miguel Grinberg
 
 * Project starts on Chapter 2 *
 
+Current Page: 49
+
 <img src="book-cover.jpg">
 
 ## Useful Commands
