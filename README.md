@@ -305,3 +305,29 @@ from flask.ext.bootstrap import Bootstrap
 
 bootstrap = Bootstrap(app)
 ```
+
+### Flask-Bootstrap's Base Template Blocks
+
+| Block Name | Description |
+| ----------- | ----------- |
+| doc | The entire HTML document |
+| html_attribs | Attributes inside the html tag |
+| html | The contents of the <-html-> tag |
+| head | The contents of the <-head-> tag |
+| title | The contents of the <-title-> tag |
+| metas | The list of <-meta-> tags |
+| styles | Cascading stylesheet definitions |
+| body_attribs | Attributes inside the body tag |
+| body | The contents of the <-body-> tag |
+| navbar | User-defined navigation bar |
+| content | User-defined page content |
+| scripts | JavaScript declarations at the bottom of the document |
+
+## Adding a Javascript <-script-> block
+
+```html
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="my-script.js"></script>
+{% endblock %}
+```
